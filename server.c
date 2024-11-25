@@ -6,7 +6,7 @@
 /*   By: omalovic <omalovic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 21:07:08 by alex              #+#    #+#             */
-/*   Updated: 2024/11/25 17:53:37 by omalovic         ###   ########.fr       */
+/*   Updated: 2024/11/25 18:47:26 by omalovic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,10 @@ int	handle_char(t_server_state **state)
 {
 	if ((*state)->current_value == '\0')
 	{
-		// if (kill((*state)->pid, SIGUSR1) == -1)
-		// 	stop_programm(1, state);
 		write(1, "\n", 1);
 		free(*state);
 		*state = NULL;
+		g_received_len = 0;
 		return (0);
 	}
 	else
@@ -45,29 +44,41 @@ int	handle_char(t_server_state **state)
 	return (1);
 }
 
-/* void	receive_len(int sig, t_server_state **state, char **buffer)
+void	receive_len(int sig, t_server_state **state, char **buffer)
 {
+	int len;
+	char num_ch;
+	
+	len = 0;
 	*buffer = NULL;
 	if (sig == SIGUSR2)
 		(*state)->current_value |= (1 << (*state)->bit_index);
 	(*state)->bit_index++;
-	if ((*state)->bit_index == 32)
+	if ((*state)->bit_index == 8)
 	{
-		g_received_len = 1;
-		ft_printf("%d\n", (*state)->current_value);
-		if (kill((*state)->pid, SIGUSR1) == -1)
-			stop_programm(1, state);
-		write(1, "\n", 1);
-		free(*state);
-		*state = NULL;
-		exit(EXIT_SUCCESS);
+		if ((*state)->current_value == '\0')
+		{
+			g_received_len = 1;
+			ft_printf("len: %d\n", len);
+			(*state)->bit_index = 0;
+			(*state)->current_value = 0;
+			return ;
+		}
+		num_ch = ((*state)->current_value);
+		len += num_ch - '0';
+		printf("num_ch %c\n", num_ch);
+		printf("len %d\n", len);
+		(*state)->bit_index = 0;
+		(*state)->current_value = 0;
 	}
-} */
+	// if (g_received_len == 1)
+	// 	return;
+}
 
 void	handle_signal(int sig, siginfo_t *info, void *context)
 {
 	static t_server_state	*state = NULL;
-	// static char				*buffer = NULL;
+	static char				*buffer = NULL;
 	
 	(void)context;
 	if (!state)
@@ -79,18 +90,27 @@ void	handle_signal(int sig, siginfo_t *info, void *context)
 		state->current_value = 0;
 		state->pid = info->si_pid;
 	}
-	// if (g_received_len == 0)
-	// 	receive_len(sig, &state, &buffer);
-	if (sig == SIGUSR2)
-		state->current_value |= (1 << state->bit_index);
-	state->bit_index++;
-	if (state->bit_index == 8)
+	if (g_received_len == 0)
+		receive_len(sig, &state, &buffer);
+	else
 	{
-		if (!handle_char(&state))
-			return ;
+		if (sig == SIGUSR2)
+			state->current_value |= (1 << state->bit_index);
+		state->bit_index++;
+		if (state->bit_index == 8)
+		{
+			if (!handle_char(&state))
+				return ;
+		}
 	}
-	// if (kill(state->pid, SIGUSR1) == -1)
-	// 	stop_programm(1, &state);
+	// if (sig == SIGUSR2)
+	// 	state->current_value |= (1 << state->bit_index);
+	// state->bit_index++;
+	// if (state->bit_index == 8)
+	// {
+	// 	if (!handle_char(&state))
+	// 		return ;
+	// }
 }
 
 int	main(void)
