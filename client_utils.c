@@ -6,7 +6,7 @@
 /*   By: omalovic <omalovic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:41:10 by alex              #+#    #+#             */
-/*   Updated: 2024/11/25 14:20:39 by omalovic         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:37:40 by omalovic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	stop_programm(int i)
 
 void	send_bit(int pid, int bit)
 {
+	usleep(500);
 	if (bit == 0)
 	{
 		if (kill(pid, SIGUSR1) == -1)
@@ -59,4 +60,90 @@ void	send_bit(int pid, int bit)
 			stop_programm(1);
 	}
 	wait_for_ack();
+}
+
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		i++;
+	}
+	return (i);
+}
+
+int	get_length(int n)
+{
+	int	length;
+
+	length = 0;
+	if (n < 0)
+	{
+		length++;
+	}
+	while (n != 0)
+	{
+		n /= 10;
+		length++;
+	}
+	if (length == 0)
+		return (1);
+	return (length);
+}
+
+char	*ft_strdup1(const char *s1)
+{
+	int		len_s1;
+	char	*s2;
+	int		i;
+
+	len_s1 = 0;
+	i = 0;
+	while (s1[len_s1] != '\0')
+	{
+		len_s1++;
+	}
+	s2 = (char *)malloc(sizeof(char) * (len_s1 + 1));
+	if (s2 == NULL)
+	{
+		return (NULL);
+	}
+	while (i < len_s1)
+	{
+		s2[i] = s1[i];
+		i++;
+	}
+	s2[i] = '\0';
+	return (s2);
+}
+
+char	*ft_itoa(int n)
+{
+	char	*result;
+	int		length;
+
+	if (n == -2147483648)
+		return (ft_strdup1("-2147483648"));
+	length = get_length(n);
+	result = (char *)malloc(sizeof(char) * (length + 1));
+	if (!result)
+		return (NULL);
+	result[length] = '\0';
+	if (n < 0)
+	{
+		result[0] = '-';
+		n = -n;
+	}
+	if (n == 0)
+		result[0] = '0';
+	length--;
+	while (n > 0)
+	{
+		result[length] = (n % 10) + '0';
+		n /= 10;
+		length--;
+	}
+	return (result);
 }

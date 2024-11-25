@@ -6,7 +6,7 @@
 /*   By: omalovic <omalovic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 21:06:59 by alex              #+#    #+#             */
-/*   Updated: 2024/11/25 14:24:35 by omalovic         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:35:06 by omalovic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ int	main(int n, char *args[])
 	sigemptyset(&sa.sa_mask);
 	if (sigaction(SIGUSR1, &sa, NULL) == -1)
 		return (EXIT_FAILURE);
+	// work_str(pid, ft_itoa(ft_strlen(args[2])));
+	// return (0);
 	work_str(pid, args[2]);
 	return (0);
 }
