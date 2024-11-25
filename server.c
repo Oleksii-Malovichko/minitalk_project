@@ -6,7 +6,7 @@
 /*   By: omalovic <omalovic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 21:07:08 by alex              #+#    #+#             */
-/*   Updated: 2024/11/25 18:47:26 by omalovic         ###   ########.fr       */
+/*   Updated: 2024/11/25 18:50:39 by omalovic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,9 @@ int	handle_char(t_server_state **state)
 
 void	receive_len(int sig, t_server_state **state, char **buffer)
 {
-	int len;
+	static int len = 0;
 	char num_ch;
 	
-	len = 0;
 	*buffer = NULL;
 	if (sig == SIGUSR2)
 		(*state)->current_value |= (1 << (*state)->bit_index);
@@ -60,6 +59,7 @@ void	receive_len(int sig, t_server_state **state, char **buffer)
 		{
 			g_received_len = 1;
 			ft_printf("len: %d\n", len);
+			len = 0;
 			(*state)->bit_index = 0;
 			(*state)->current_value = 0;
 			return ;
