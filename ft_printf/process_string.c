@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_string.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omalovic <omalovic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 17:18:13 by omalovic          #+#    #+#             */
-/*   Updated: 2024/10/22 14:24:59 by omalovic         ###   ########.fr       */
+/*   Updated: 2024/11/21 16:10:02 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	go_to_cycle(const char *str, const char *sym, va_list args, int *result)
 	else
 	{
 		write_result = write(1, str - 1, 2);
-		if (write_result == -1)
+		if (write_result == (size_t)(-1))
 		{
 			*result = -1;
 			return ;

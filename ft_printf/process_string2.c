@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_string2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omalovic <omalovic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:27:44 by omalovic          #+#    #+#             */
-/*   Updated: 2024/10/22 14:24:56 by omalovic         ###   ########.fr       */
+/*   Updated: 2024/11/21 16:12:31 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	cycle_args2(char ch, va_list args, int *result)
 	int				value3;
 	unsigned int	value4;
 	void			*value5;
-	unsigned int	value6;
 
 	if (ch == 'u')
 	{
@@ -54,7 +53,7 @@ void	cycle_args2(char ch, va_list args, int *result)
 		cycle_arg3(ch, args, result);
 }
 
-int	work_with_str(char ch, va_list args, int *result)
+int	work_with_str(va_list args, int *result)
 {
 	char	*value2;
 
@@ -82,8 +81,6 @@ int	work_with_str(char ch, va_list args, int *result)
 void	cycle_args(char ch, va_list args, int *result)
 {
 	int		value1;
-	char	*value2;
-	int		value3;
 
 	if (ch == 'c')
 	{
@@ -96,7 +93,7 @@ void	cycle_args(char ch, va_list args, int *result)
 	}
 	else if (ch == 's')
 	{
-		if (work_with_str(ch, args, result) == -1)
+		if (work_with_str(args, result) == -1)
 			return ;
 	}
 	else

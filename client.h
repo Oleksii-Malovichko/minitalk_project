@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   client.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omalovic <omalovic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/16 13:27:44 by omalovic          #+#    #+#             */
-/*   Updated: 2024/10/22 14:21:55 by omalovic         ###   ########.fr       */
+/*   Created: 2024/11/19 21:06:13 by alex              #+#    #+#             */
+/*   Updated: 2024/11/25 14:21:03 by omalovic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#ifndef CLIENT_H
+# define CLIENT_H
 
-int	ft_printf(const char *str, ...)
-{
-	const char	*sym;
-	int			result;
-	va_list		args;
+# include <stdio.h>
+# include <unistd.h>
+# include <signal.h>
+# include <stdlib.h>
+# include "ft_printf/ft_printf.h"
 
-	sym = "cspdiuxX%";
-	va_start(args, str);
-	result = is_right_str(str, sym, args);
-	va_end(args);
-	return (result);
-}
+int		ft_atoi2(const char *str);
+void	stop_programm(int i);
+void	wait_for_ack(void);
+void	send_bit(int pid, int bit);
 
-/* int main()
-{
-	printf("%d\n", ft_printf("%d\n", 10));
-	printf("%d\n", printf("%d\n", 10));
-	// printf("%d\n", ft_printf("\001\002\007\v\010\f\r\n"));
-} */
+#endif

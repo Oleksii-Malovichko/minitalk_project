@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   funcs2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omalovic <omalovic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:01:44 by omalovic          #+#    #+#             */
-/*   Updated: 2024/10/22 14:26:03 by omalovic         ###   ########.fr       */
+/*   Updated: 2024/11/21 14:53:14 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_putnbr_base(unsigned long nb, char *base, int *result)
 {
-	int	base_len;
+	unsigned int	base_len;
 
 	base_len = ft_strlen(base);
 	if (nb >= base_len)
