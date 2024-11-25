@@ -6,7 +6,7 @@
 /*   By: omalovic <omalovic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 21:07:08 by alex              #+#    #+#             */
-/*   Updated: 2024/11/25 17:16:44 by omalovic         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:53:37 by omalovic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int	handle_char(t_server_state **state)
 {
 	if ((*state)->current_value == '\0')
 	{
-		if (kill((*state)->pid, SIGUSR1) == -1)
-			stop_programm(1, state);
+		// if (kill((*state)->pid, SIGUSR1) == -1)
+		// 	stop_programm(1, state);
 		write(1, "\n", 1);
 		free(*state);
 		*state = NULL;
@@ -89,8 +89,8 @@ void	handle_signal(int sig, siginfo_t *info, void *context)
 		if (!handle_char(&state))
 			return ;
 	}
-	if (kill(state->pid, SIGUSR1) == -1)
-		stop_programm(1, &state);
+	// if (kill(state->pid, SIGUSR1) == -1)
+	// 	stop_programm(1, &state);
 }
 
 int	main(void)
