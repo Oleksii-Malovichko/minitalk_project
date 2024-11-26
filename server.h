@@ -6,7 +6,7 @@
 /*   By: omalovic <omalovic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 21:06:31 by alex              #+#    #+#             */
-/*   Updated: 2024/11/25 18:32:32 by omalovic         ###   ########.fr       */
+/*   Updated: 2024/11/26 15:35:46 by omalovic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,17 @@
 
 int		ft_atoi1(const char *str);
 void	*ft_calloc(size_t count, size_t size);
+void	ft_putstr2(char *buffer);
 
 typedef struct s_server_state
 {
-	int	bit_index;
+	int		bit_index;
 	char	current_value;
-	int	pid;
+	int		pid;
 }		t_server_state;
+
+int		receive_len(int sig, t_server_state **state);
+void	give_mem(int sig, t_server_state **state, char **buffer);
+void	stop_programm(int i, t_server_state **state1);
 
 #endif

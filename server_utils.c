@@ -6,7 +6,7 @@
 /*   By: omalovic <omalovic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:40:24 by alex              #+#    #+#             */
-/*   Updated: 2024/11/25 13:42:43 by omalovic         ###   ########.fr       */
+/*   Updated: 2024/11/26 15:33:28 by omalovic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,19 @@ int	ft_atoi1(const char *str)
 	return ((int)(num * sign));
 }
 
+void	give_mem(int sig, t_server_state **state, char **buffer)
+{
+	int	len;
+
+	len = receive_len(sig, state);
+	if (len > 0)
+	{
+		*buffer = malloc(sizeof(char) * (len + 1));
+		if (!*buffer)
+			stop_programm(1, state);
+	}
+}
+
 void	*ft_calloc(size_t count, size_t size)
 {
 	size_t			total_size;
@@ -50,7 +63,7 @@ void	*ft_calloc(size_t count, size_t size)
 	ptr = (void *) malloc (total_size);
 	if (ptr == NULL)
 	{
-		return (NULL);
+		exit(EXIT_FAILURE);
 	}
 	byte_ptr = ptr;
 	while (i < total_size)
@@ -59,4 +72,17 @@ void	*ft_calloc(size_t count, size_t size)
 		i++;
 	}
 	return (ptr);
+}
+
+void	ft_putstr2(char *buffer)
+{
+	int	i;
+
+	i = 0;
+	while (buffer[i] != '\0')
+	{
+		write(1, &buffer[i], 1);
+		i++;
+	}
+	write(1, "\n", 1);
 }

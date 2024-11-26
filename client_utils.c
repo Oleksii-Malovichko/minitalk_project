@@ -6,7 +6,7 @@
 /*   By: omalovic <omalovic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:41:10 by alex              #+#    #+#             */
-/*   Updated: 2024/11/25 18:04:12 by omalovic         ###   ########.fr       */
+/*   Updated: 2024/11/26 15:03:12 by omalovic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,33 +44,6 @@ void	stop_programm(int i)
 		exit(EXIT_SUCCESS);
 	if (i == 1)
 		exit(EXIT_FAILURE);
-}
-
-void	send_bit(int pid, int bit)
-{
-	usleep(200);
-	if (bit == 0)
-	{
-		if (kill(pid, SIGUSR1) == -1)
-			stop_programm(1);
-	}
-	else
-	{
-		if (kill(pid, SIGUSR2) == -1)
-			stop_programm(1);
-	}
-}
-
-int	ft_strlen(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		i++;
-	}
-	return (i);
 }
 
 int	get_length(int n)

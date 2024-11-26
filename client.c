@@ -6,13 +6,38 @@
 /*   By: omalovic <omalovic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 21:06:59 by alex              #+#    #+#             */
-/*   Updated: 2024/11/25 18:46:28 by omalovic         ###   ########.fr       */
+/*   Updated: 2024/11/26 15:14:07 by omalovic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "client.h"
 
-// static volatile sig_atomic_t	sended_len = 0;
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		i++;
+	}
+	return (i);
+}
+
+void	send_bit(int pid, int bit)
+{
+	usleep(300);
+	if (bit == 0)
+	{
+		if (kill(pid, SIGUSR1) == -1)
+			stop_programm(1);
+	}
+	else
+	{
+		if (kill(pid, SIGUSR2) == -1)
+			stop_programm(1);
+	}
+}
 
 void	send_char(int pid, char c)
 {
@@ -33,7 +58,6 @@ void	work_str(int pid, char *str, char *size)
 	int	i;
 
 	i = 0;
-
 	while (size[i] != '\0')
 	{
 		send_char(pid, size[i]);
@@ -52,7 +76,7 @@ void	work_str(int pid, char *str, char *size)
 
 int	main(int n, char *args[])
 {
-	int					pid;
+	int	pid;
 
 	if (n != 3)
 		stop_programm(1);
